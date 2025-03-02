@@ -17,6 +17,7 @@ route.post('/addPerson', async(req,res)=>{
         res.status(400).json({err:error.message});
     }
 })
+// hedhi first api with .save
 route.post('/addMany', async (req,res)=>{
     try {
         let manyP= await person.create(req.body)
@@ -25,6 +26,7 @@ route.post('/addMany', async (req,res)=>{
         res.status(400).json({err:error.message});
     }
 })
+// hedhi second api with .create
 route.get('/Gettingall', async (req,res)=>{
     try {
         let findall= await person.find();
@@ -33,6 +35,7 @@ route.get('/Gettingall', async (req,res)=>{
         res.status(400).json({err:error.message});
     }
 })
+//hedhi third api with .find
 route.get('/getOne/:Food', async (req,res)=>{
     try {
         let search = await person.findOne({favoriteFoods:req.params.Food});
@@ -41,6 +44,7 @@ route.get('/getOne/:Food', async (req,res)=>{
         res.status(400).json({err:error.message})
     }
 })
+// hedhi fourth api with findOne
 route.get('/getID/:id', async (req,res)=>{
     try {
         let cherche= await person.findById(req.params.id);
@@ -49,10 +53,12 @@ route.get('/getID/:id', async (req,res)=>{
         res.status(400).json({err:error.message});
     }
 })
+// hedhi fifth api with .findbyId
 route.put('/updatefood/:id', async (req,res)=>{
     const newUp=req.body;
     try {
-        const updated= await person.findByIdAndUpdate(req.params.id , newUp , {new:true});
+        const updated= await person.findByIdAndUpdate(req.params.id , newUp);
+        person.favoriteFoods.push('hamburger');
         updated.save();
         res.status(200).json({updated});
     } catch (error) {
@@ -79,13 +85,23 @@ route.delete('/delete/:id', async (req,res)=>{
 })
 route.delete('/deletemary/:name', async (req,res)=>{
     try {
-        const suppr= await person.remove(req.body.name);
+        const suppr= await person.delete(req.body.name);
         res.status(200).json({suppr});
     } catch (error) {
         res.status(400).json({err:error.message});
     }
 })
-route.find
+route.get('/afficher', async (req,res)=>{
+ try {
+    const aff= await person.find({favoriteFoods:'burrito'})
+    .sort({name:1})
+    .limit(2)
+    .select('-age').exec()
+    res.status(200).json({aff});
+ } catch (error) {
+    res.status(400).json({err:error.message})
+ }
+})
 module.exports={route};
 
 
