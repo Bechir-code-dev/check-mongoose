@@ -65,6 +65,7 @@ route.put('/updatefood/:id', async (req,res)=>{
         res.status(400).json({err:error.message});
     }
 })
+// hedhi sixth api with findid and update 
 route.put('/updateage/:name', async (req,res)=>{
     const nuevo=req.body;
     try {
@@ -102,27 +103,5 @@ route.get('/afficher', async (req,res)=>{
     res.status(400).json({err:error.message})
  }
 })
+
 module.exports={route};
-
-
-
-
-
-
-
-
-
-
-
-
-// Person.find({ favoriteFoods: 'Burritos' })
-//   .sort({ name: 1 })      // Sort by name (1 for ascending, -1 for descending)
-//   .limit(2)               // Limit the results to 2
-//   .select('-age')         // Exclude the "age" field
-//   .exec(function(err, data) {
-//     if (err) {
-//       console.log('Error fetching data:', err);
-//     } else {
-//       console.log('People who like burritos:', data);
-//     }
-//   });
