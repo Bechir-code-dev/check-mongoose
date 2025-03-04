@@ -57,8 +57,8 @@ route.get('/getID/:id', async (req,res)=>{
 route.put('/updatefood/:id', async (req,res)=>{
     const newUp=req.body;
     try {
-        const updated= await person.findByIdAndUpdate(req.params.id , newUp);
-        person.favoriteFoods.push('hamburger');
+        const updated= await person.findByIdAndUpdate(req.params.id , newUp, {new:true});
+        updated.favoriteFoods.push('burrito');
         updated.save();
         res.status(200).json({updated});
     } catch (error) {
@@ -95,7 +95,7 @@ route.delete('/deletemary/:name', async (req,res)=>{
 route.get('/afficher', async (req,res)=>{
  try {
     const aff= await person.find({favoriteFoods:'burrito'})
-    .sort({name:1})
+    .sort({age:1})
     .limit(2)
     .select('-age').exec()
     res.status(200).json({aff});
